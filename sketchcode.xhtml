@@ -81,8 +81,6 @@ var definitions_editor = Editor($("definitions editor")[0], intentions);
 var commit_history = CommitHistory( $("history")[0] );
 
 
-var app  = $("app")[0];
-
 
 document.onkeydown = function (ev) {
   if (ev.keyIdentifier === "Enter" && ev.ctrlKey) {
@@ -91,7 +89,6 @@ document.onkeydown = function (ev) {
 
     
     commit_history.save( code_editor.get_content() );
-    app.innerHTML = ""; //app.reset() once we get objects;
     eval(code_editor.to_js() );
           
   }

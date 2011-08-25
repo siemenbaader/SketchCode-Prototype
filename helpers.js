@@ -117,4 +117,3 @@ function Node(html_constructor, text) {
   return node;
 }
 
-
