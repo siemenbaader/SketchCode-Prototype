@@ -1,0 +1,151 @@
+SketchCode
+==========
+
+The GUI with its columns & styling
+
+AUX:
+-----
+- sketchcode.css
+
+
+Globals:
+--------
+* app
+* code_editor
+
+
+
+CommitHistory( dom_element )
+=============
+ * render()
+ * save( state object that is appended to an array, which is then JSON dumped )
+ * load( revision [none defaults to current head] )
+ * checkout ( revision )                     // Loads & sets the current head to that revision, advance the pointer
+
+
+
+
+
+Global Sugar functions:
+=======================
+* DocumentFragment()
+* function Node(html_constructor, text)
+
+* Text.prototype.to_js = function() { return this.wholeText };
+  HTMLBRElement.prototype.to_js = function() { return "\n" };
+  HTMLElement.prototype.to_js = function() {
+    var contents = $(this).contents().toArray();
+    return contents.map(function(i) { return i.to_js() }).join("");
+  };
+
+  HTMLCollection.prototype.map = Array.prototype.map;
+
+
+
+
+
+Editor( dom_el )
+================
+
+AUX
+---
+* editor.css
+
+
+Methods
+--------
+* to_js()
+* render = function(){ l("NOOP"); };
+* set_content()   -> set_content( serialized string format)
+* get_content()
+* cursor
+* menu
+* mode
+* onkeydown
+* go_to_menu_mode()
+* go_to_normal_mode()
+
+
+
+
+IntentionInteractionWindow( dom_el )
+====================================
+
+Has:
+- Setup
+- the Intention
+- REPL
+  - Editor
+  - Output
+
+
+
+definitions.append: IntentionDefinition()
+- menu view
+- match text
+- Intention( {fields})  // factory function
+
+
+
+
+Intention() 
+===========
+
+Intentions that can be inserted by the editor, defined in the definitions window, and interacted with when activated.
+
+An instance of an Intention Definition.
+A dom element that can be appended to the rich editor.
+
+AUX:
+----
+
+intentions.css  // should carry their own css.
+
+
+Properties:
+-----------
+* fields
+* view    // what is appended to the 
+* view.to_js()
+
+* interact()  / brings up an IntentionInteractionWindow
+
+
+ var DeclarationAssignment = {
+    match_text: "var",
+    menu_view: "<b>var</b> <field/> <b>=</b> <field/><b>;</b><span class='type'>  Declaration-Assignment</span>",
+    Entity: function () {
+      var e = {};
+      
+      e.fields  = ['name', 'value'];
+      e.view    = $("<declaration-assignment contenteditable='false'><b>var</b> <field name='name' contenteditable='true'/> <b>=</b> <field name='value' contenteditable='true'/><b>;</b></declaration-assignment>")[0];
+      
+      e.view.to_js = e.to_js   = function() {
+        var fields = $(e.view).find("field");
+        // TODO: Now I just need to find a cleaner model of recursive to_js in everything that is inserted into the editor. no innerText
+        return "var " + fields[0].to_js() + " = " + fields[1].to_js() + ";";
+      };
+      
+      return e;
+    }
+  };
+
+Contract for menu:
+    match_text:
+    menu_view: (html)
+    Entity: function, returning Intention object () {
+      var e = {};
+      
+      e.fields  = ['name', 'value'];
+      e.view    = $("<declaration-assignment contenteditable='false'><b>var</b> <field name='name' contenteditable='true'/> <b>=</b> <field name='value' contenteditable='true'/><b>;</b></declaration-assignment>")[0];
+      
+      e.view.to_js = e.to_js   = function() {
+        var fields = $(e.view).find("field");
+        // TODO: Now I just need to find a cleaner model of recursive to_js in everything that is inserted into the editor. no innerText
+        return "var " + fields[0].to_js() + " = " + fields[1].to_js() + ";";
+      };
+      
+      return e;
+    }
+  };
+

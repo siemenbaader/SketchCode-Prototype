@@ -1,0 +1,5 @@
+history {background-color: white; border: 1px solid black; display: block;  width: 1540px; position: absolute; top: 800px; left: 20px; padding: 10px; }
+commits {  white-space: pre; font-family: monospace; font-size: 16px; display: block; overflow: auto; padding: 30px;} 
+commit { border: 1px solid black; background-color: #E00; border-radius: 3px; margin: 0.5em; }
+commit:hover { outline: 7px solid #E00; cursor: default;}
+commit.working-revision { outline: 7px solid #E00;}

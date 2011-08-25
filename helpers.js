@@ -103,3 +103,18 @@ function parse_document_fragment( html ) {
   $( html ).each( function(index, data) { d.appendChild(data); } );
   return d;
 }
+
+
+// Sugar functions to construct DOM elements more nicely
+
+function DocumentFragment() {  // is this save??
+  return document.createDocumentFragment();
+}
+
+function Node(html_constructor, text) {
+  var node = $(html_constructor)[0];
+  node.innerText = text;
+  return node;
+}
+
+

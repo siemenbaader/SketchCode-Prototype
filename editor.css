@@ -1,0 +1,37 @@
+/* The black editing component */
+
+editor {background-color: black; color: white; font-family: monospace; padding: 5px; height: auto;} 
+editor { display: block; position: relative; background-color: black; width: auto; }
+
+/* what here? */
+
+.kword { font-weight: bold; border: 1px dotted blue; } 
+.cursor {border: 2px solid red;}
+
+
+
+dropdown_menu {border: 2px solid gray; width: 25em; display: block; background-color: white; color: black; padding: 5px; white-space: pre;}
+dropdown_menu item { display: block; }
+dropdown_menu item.selected {background-color:  #BCF;}
+
+dropdown_menu field { outline: 2px solid blue; background-color: transparent; }
+dropdown_menu function b { color: black; }
+.type {font-style: italic;}
+
+
+
+
+
+#editor { border: 1px dotted black; }
+
+function, declaration-assignment { cursor: default; width: 35em; }
+function b { color: #ff9966; }
+function:hover, declaration-assignment:hover { outline: 1px dotted gray; }
+declaration-assignment { border: 2px solgid red; display: block; }
+declaration-assignment b { color: #99cc00; }
+field {/*outline: 1px solid #BCF;*/ background-color: #444;  display: inline-block; vertical-align: top; min-width: 10px; min-height: 16px; cursor: text; color:#3399cc; }
+field:hover { outline: 2px solid #BCF; } 
+field.blank { background-color: #BCF; width: 0.5em; }
+layouter { /*background-color: red;*/ }
+cursor { color: red; }
+comment { background-color: #3B3; display: inline-block; border: 1px solid black;  border-radius: 3px; }

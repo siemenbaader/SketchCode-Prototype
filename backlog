@@ -1,0 +1,112 @@
+Aspects of coding to improve:
+=============================
+    - add interactivity (whole & piecemeal)
+    - add material qualities through representations
+    - add explorativity thru versioning
+    - encourage refining
+
+
+Backlog
+=======
+* Deal with hiliting text area (eg remove) OK
+* Make a sample app
+  - eg a small menu
+
+* Entity display (AST mode)
+  - defining entities in text
+  - insert entities into code
+  - editing text code & entity content
+
+* Entity interaction
+  - load & REPL inteties
+  - define closure vars for entities
+  - define other aspects of entities; eg benchmark
+
+* In-Place entity editing
+  - merge rich text editor / make all panels rich editing
+  - entity inserting
+  - use already defined entites in the declaration of new ones
+
+* (IDE panel)
+  - IDE panel to extend the IDE from the browser
+
+* Exploration History
+  - sequential
+  - checkouts
+  - persisting
+  - branching
+  - labelling
+  - colordiff views
+
+* App Logging console
+
+* Multiple files support
+
+
+
+TODAY TODO
+==========
+
+* Can I make local style defs inside an element?
+  - use externally linked sheets pr concept then
+
+
+* History
+  - no commit on errors
+  - catch & show exception in App window
+  - delete individual commits
+  - commit code & defs editors
+
+  Later
+  - persist to disk function
+  - persist all state (now is only innerHTML)
+
+* Entity insertion
+  - one hardcoded entity for definitions
+  - SHIFT+ENTER to trigger menu & show all defs
+
+* Entity interaction
+
+
+* Make sample abstraction
+
+
+
+
+Status 26 mar 2011, 21:00
+=========================
+
+* Have an intention interaction window that can open
+* defining intentions from the intentions editor works
+* need to look at intention format to see if they can be 
+  a. serialized & saved to localStorage
+  b. be DOM elements themselves
+  c. if they can be shown in different places at the same time. clone?
+
+
+Missing
+=======
+
+
+Morning:
+
+* REPL fixup: Adding intention to REPL view, positioning: overflow: auto vs visible!
+* REPL action
+* interaction shineup - CTRL-keys etc
+* persisting
+* fake history
+* History cleanup & labels
+* eval err background
+
+* make a good example intention - state machine?
+
+
+Afternoon: 
+* presentation outline
+* Slides & lego
+
+
+
+
+
+

@@ -1,0 +1,8 @@
+    intention_interaction_window {display: block; border: 2px solid black; width: 400px; position: absolute; top: -30px; left: -20px; color: black; padding: 10px; background-color: white; }
+    intention_interaction_window repl, intention_interaction_window setup {display : block; border: 1px solid gray; width: 100%; }
+    /*intention_interaction_window entity {display: block; }*/
+    intention_interaction_window header { border: none; background-color: transparent; font-size: 16px; padding: 0; margin: 0; margin-top: 10px;}
+    #repl-setup { width: 200px; }
+    intention_interaction_window output {color: white; white-space: pre; background-color: #222; color: green; padding: 5px; display: block; width: auto;}
+    intention_interaction_window close_button { float: right; font-family: monospace; }
+    intention_interaction_window close_button:hover { color: #B00; cursor: default;}
