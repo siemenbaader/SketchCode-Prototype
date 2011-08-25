@@ -1,18 +1,19 @@
 /* CSS for the overall GUI layout of the components */
 
-body {background-color: gray; }
+body {background-color: gray; margin:0; padding: 0; }
 
-columns { display: block; width: 2000px;}
-.column {float: left; width: 500px; height: 400px; margin: 15px;}
+columns { display: block; width: 1020px;}
+.column {float: left; width: 494px; height: 300px; margin: 5px;}
 header { border: 1px solid black; padding: 10px; font-family: sans-serif; font-size: 24px; background-color: white; font-weight: bold; margin-bottom: 10px; width: 220px;}
 
-editor-column { display: block; width: 500px; height: 400px;}
+editor-column { display: block; width: 500px; height: 300px;}
 
 #code{
-    width: 100%; height: 680px; overflow: visible; /*auto;*/}
+    width: 100%; height: 500px; overflow: visible; /*auto;*/}
 filetabs file { border: 1px solid black; border-bottom: none; padding: 5px; font-family: sans-serif; font-size: 14px; background-color: #BBB; }
 file#current { font-weight: bold; background-color: white;}
 
 interactive app { display: block; border: 1px solid black; background-color: white; padding: 20px; height: 668px; position: relative; }
 
-definitions editor { height: 680px; }
+definitions editor { height: 500px; }
+
