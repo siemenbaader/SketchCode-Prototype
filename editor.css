@@ -1,6 +1,6 @@
 /* The black editing component */
 
-editor {background-color: black; color: white; font-family: monospace; padding: 5px; height: auto;} 
+editor {background-color: black; color: white; font-family: monospace; padding: 5px; height: auto; font-weight: bold;} 
 editor { display: block; position: relative; background-color: black; width: auto; }
 
 /* what here? */

@@ -2,7 +2,8 @@ var CommitHistory = function( dom_element ) {
   // Has a currently checked out state, maybe a hovered state, and an ever growing list of commits
   // Also has some coupled controller logic for persisting and loading state, where it has side effects on the documents & depends on their design!
 
-  var commits = JSON.parse(localStorage.sk_commit_history);
+  var commits = JSON.parse(localStorage.sk_commit_history || '["//Keep this comment below everything else"]');
+  
   var working_revision = commits.length -1;
   var commit_view = $(dom_element).find("commits")[0];
 
