@@ -1,0 +1,10 @@
+{
+  "name": "SketchCode",
+  "description": "Turning code into design material",
+  "author": "Siemen Baader <siemenbaader@gmail.com>",
+  "version": "0.1.0",
+  "dependencies": {
+    "jsDAV": "0.1.2"
+  },
+  "engine": "node >= 0.6.14"
+}
