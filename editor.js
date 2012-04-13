@@ -18,7 +18,6 @@
 // 
 /*    if(this.tagName == "intention") {
       var fields = $(this).find("field").toArray();
-      
     }*/
 //      
     var contents = $(this).contents().toArray();
@@ -265,9 +264,22 @@
 
   }
 
+
   function Editor( self, intentions ) {
+
     self.render = function(){ l("NOOP"); };
-    self.set_content = function (str) { self.innerHTML = str };
+
+    self.set_content = function (serialized_objects) {
+console.log(serialized_objects);
+
+      var content_objects = eval(serialized_objects);
+console.log(content_objects);
+
+
+      content_objects.map( function(i){ return document.createTextNode(i); } ).forEach( function(i) { self.appendChild(i)});
+
+    };
+
     self.get_content = function () { return self.innerHTML; };
     var cursor = Cursor( self );
     self.cursor = cursor;

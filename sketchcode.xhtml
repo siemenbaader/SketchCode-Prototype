@@ -81,6 +81,9 @@ var definitions_editor = Editor($("definitions editor")[0], intentions);
 var commit_history = CommitHistory( $("history")[0] );
 
 
+// Control: this outer layer only wires together actions. The editor itself
+// is responsible for serializing and de-serializing rich objects.
+
 
 document.onkeydown = function (ev) {
   if (ev.keyIdentifier === "Enter" && ev.ctrlKey) {
@@ -137,6 +140,11 @@ var IntentionInteractionWindowEditor = function( intention ) {
 
 // var popup = IntentionInteractionWindowEditor( intention );
 
+
+  var edited_file = new URL(window.location.href).query_string();
+
+  var data = '["foo", "bar", "gum", "ColorPicker.new(788)"]';
+  code_editor.set_content( data );
 
 
 ]]></script>

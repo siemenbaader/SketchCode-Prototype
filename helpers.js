@@ -15,10 +15,30 @@ function URL(str) {
     basename: function() {
       var tokens = str.split('/');
       return (tokens[ tokens.length-1 ])
+    },
+
+    query_string: function() { return this.string.split("?")[1] || ""; },
+
+    query_parameters: function() {
+     
+      var pairs = this.query_string().split("&").map(
+        function(pair_string){
+         var items = pair_string.split("=");
+         return [ items[0],  items[1] ] ;
+        }
+      );
+
+      var parameters = {};
+      pairs.forEach( function( pair) {
+        parameters[ pair[0] ] = pair[1];
+      })
+
+      return parameters;
     }
   }
   return self;
 }
+
 
 function blocking_ajax_request(url, method, data) {
   var req = new XMLHttpRequest()
