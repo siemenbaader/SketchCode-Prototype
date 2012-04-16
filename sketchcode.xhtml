@@ -85,6 +85,12 @@ var commit_history = CommitHistory( $("history")[0] );
 // is responsible for serializing and de-serializing rich objects.
 
 
+var file_URL = new URL(window.location.href).query_string();
+
+var loaded = get(new URL(file_URL));
+
+code_editor.set_content( loaded );
+
 document.onkeydown = function (ev) {
   if (ev.keyIdentifier === "Enter" && ev.ctrlKey) {
 //     ev.preventDefault();
@@ -94,11 +100,16 @@ document.onkeydown = function (ev) {
     commit_history.save( code_editor.get_content() );
     eval(code_editor.to_js() );
           
+  };
+  
+  if (ev.keyIdentifier === "U+0053" && ev.ctrlKey) {  // Ctrl + s
+    put(new URL(file_URL), code_editor.get_content() );
+    ev.preventDefault();
   }
 };
 
 
-commit_history.load();
+// commit_history.load();  Broken until serialization works
 
     ]]></script>
 
@@ -139,12 +150,6 @@ var IntentionInteractionWindowEditor = function( intention ) {
 
 
 // var popup = IntentionInteractionWindowEditor( intention );
-
-
-  var edited_file = new URL(window.location.href).query_string();
-
-  var data = '["foo", "bar", "gum", "ColorPicker.new(788)"]';
-  code_editor.set_content( data );
 
 
 ]]></script>

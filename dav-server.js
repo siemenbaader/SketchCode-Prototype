@@ -3,7 +3,7 @@
 var jsDAV = require("jsDAV/lib/jsdav"),
     jsDAV_Locks_Backend_FS = require("jsDAV/lib/DAV/plugins/locks/fs");
 
-jsDAV.debugMode = true;
+// jsDAV.debugMode = true;
 
 jsDAV.createServer({
     node: __dirname,

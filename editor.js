@@ -4,8 +4,14 @@
 
 // (function(exports) {
 
-  Text.prototype.to_js = function() { return this.wholeText };
+  HTMLSpanElement.prototype.to_constructor = function() { return "document.createElement('span')"; };
+  
+  Text.prototype.to_js = function() { return this.wholeText; };
+  Text.prototype.to_constructor = function() { return "document.createTextNode(" + JSON.stringify(this.wholeText) +")"; };
+  
   HTMLBRElement.prototype.to_js = function() { return "\n" };
+  HTMLBRElement.prototype.to_constructor = function() { return "document.createElement('br')" };
+  
   HTMLElement.prototype.to_js = function() {
 //     if(this.getAttribute['to_js']) {   // only defined for intentions
 //       l(this);
@@ -23,7 +29,7 @@
     var contents = $(this).contents().toArray();
     return contents.map(function(i) { return i.to_js() }).join("");
   };
-
+  
   HTMLCollection.prototype.map = Array.prototype.map;
 
   var Comment = {
@@ -44,11 +50,13 @@
   var DeclarationAssignment = {
     match_text: "var",
     menu_view: "<b>var</b> <field/> <b>=</b> <field/><b>;</b><span class='type'>  Declaration-Assignment</span>",
-    Entity: function () {
+    Entity: function (name, value) {
       var e = {};
+      if (!name) name = '';
+      if (!value) value = '';
       
-      e.fields  = ['name', 'value'];
-      e.view    = $("<declaration-assignment contenteditable='false'><b>var</b> <field name='name' contenteditable='true'/> <b>=</b> <field name='value' contenteditable='true'/><b>;</b></declaration-assignment>")[0];
+      e.fields  = [name , value];
+      e.view    = $("<declaration-assignment contenteditable='false'><b>var</b> <field name='name' contenteditable='true'>" + name + "</field> <b>=</b> <field name='value' contenteditable='true'>" + value + "</field><b>;</b></declaration-assignment>")[0];
       
       e.view.to_js = e.to_js   = function() {
         var fields = $(e.view).find("field");
@@ -56,6 +64,9 @@
         return "var " + fields[0].to_js() + " = " + fields[1].to_js() + ";";
       };
       e.view.onclick = function() { IntentionInteractionWindowEditor( e.view ) };
+      e.view.to_constructor = function() {
+	var fields = $(e.view).find("field");
+	return 'DeclarationAssignment.Entity("'+ fields[0].innerText + '","' + fields[1].innerText + '").view';   };
       
       return e;
     }
@@ -266,21 +277,26 @@
 
 
   function Editor( self, intentions ) {
-
+  
     self.render = function(){ l("NOOP"); };
 
     self.set_content = function (serialized_objects) {
-console.log(serialized_objects);
-
-      var content_objects = eval(serialized_objects);
-console.log(content_objects);
-
-
-      content_objects.map( function(i){ return document.createTextNode(i); } ).forEach( function(i) { self.appendChild(i)});
-
+      try {
+	var objects = eval(serialized_objects);
+	window.objects = objects;
+	objects.forEach( function(obj) { self.appendChild( obj ); } );
+      } catch (err) {
+	l(err);
+	alert("Err reading file. Valid format? Check log.");
+      }
+      
     };
-
-    self.get_content = function () { return self.innerHTML; };
+    
+    // returns a serialized form of its object contents and their state for persistence
+    self.get_content = function () { 
+      return "[" +  self.childNodes.map( function(node) { return node.to_constructor(); } ).join(", ") + "]";
+    };
+    
     var cursor = Cursor( self );
     self.cursor = cursor;
 

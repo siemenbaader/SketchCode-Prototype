@@ -43,6 +43,7 @@ function URL(str) {
 function blocking_ajax_request(url, method, data) {
   var req = new XMLHttpRequest()
   req.open(method, url.string, false)
+  req.setRequestHeader("If-Modified-Since", "Sat, 1 Jan 2005 00:00:00 GMT");   // No caching
   req.send(data)
   return req.responseText
 }
@@ -112,6 +113,7 @@ String.prototype.times = function(count) {
 String.prototype.x = String.prototype.times; //sugar
 
 NodeList.prototype.forEach = Array.prototype.forEach;
+NodeList.prototype.map = Array.prototype.map;
 
 function render_templates() {
   document.getElementsByTagName("eval").forEach( function(node) { node.innerHTML = eval(node.innerHTML) } );
