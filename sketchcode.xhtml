@@ -7,35 +7,21 @@
     <script src='rangy-1.0b1/rangy-core.js'/>
     <script src='rangy-1.0b1/rangy-core.js'/>
     <script src='rangy-1.0b1/rangy-selectionsaverestore.js'/>
-
     <script src="editor.js"/>
-    <link rel="stylesheet" type="text/css" href="editor.css" />
-
-    <link rel="stylesheet" type="text/css" href="intention-interaction-window.css" />
-
-    <link rel="stylesheet" type="text/css" href="sketchcode.css" />
-
-
-    <link rel="stylesheet" type="text/css" href="commit-history.css" />
     <script src="commit-history.js"/>
-
-
-    
-  </head>
-
-  <body>
-
-<columns>
-  
-
-
-  <definitions class="column">
-    <header>Definitions</header>
-    <filetabs> 
+    <link rel="stylesheet" type="text/css" href="editor.css" />
+    <link rel="stylesheet" type="text/css" href="intention-interaction-window.css" />
+    <link rel="stylesheet" type="text/css" href="sketchcode.css" />
+    <link rel="stylesheet" type="text/css" href="commit-history.css" />
+    </head>
+    <body>
+      <columns>
+      <definitions class="column">
+      <header>Definitions</header>
+      <filetabs> 
       <file id="current">Definitions</file>
-    </filetabs>
-    <editor>
-
+      </filetabs>
+      <editor>
 
       //foooo
       <declaration-assignment xmlns="http://www.w3.org/1999/xhtml" contenteditable="false"><b>var</b> <field name="name" contenteditable="true">a</field> <b>=</b> <field name="value" contenteditable="true">5898</field><b>;</b>
@@ -44,115 +30,112 @@
 
       //foo
 
-    </editor>
-  
-  </definitions>
+      </editor>
 
-  <editor-column class="column">
-    <header>Code</header>
-    <filetabs> 
+      </definitions>
+
+      <editor-column class="column">
+      <header>Code</header>
+      <filetabs> 
       <file id="current">Code.js</file>
       <file>hello.rb</file>
-    </filetabs>
-    <editor id="code"/>
-  </editor-column>
+      </filetabs>
+      <editor id="code"/>
+      </editor-column>
 
-</columns>
-
-
-<history>
- <header> History </header>
-  <commits/>
-</history>
-
-    <script><![CDATA[
+      </columns>
 
 
+      <history>
+      <header> History </header>
+      <commits/>
+      </history>
 
-// var popup = IntentionInteractionWindowEditor( intention );
+      <script><![CDATA[
 
+        // var popup = IntentionInteractionWindowEditor( intention );
 
-var intentions = [DeclarationAssignment, VarText, Comment ];
+        var intentions = [DeclarationAssignment, VarText, Comment ];
 
-var code_editor = Editor($("#code")[0], intentions);
+        var code_editor = Editor($("#code")[0], intentions);
 
-var definitions_editor = Editor($("definitions editor")[0], intentions);
+        var definitions_editor = Editor($("definitions editor")[0], intentions);
 
-var commit_history = CommitHistory( $("history")[0] );
-
-
-// Control: this outer layer only wires together actions. The editor itself
-// is responsible for serializing and de-serializing rich objects.
-
-
-var file_URL = new URL(window.location.href).query_string();
-
-var loaded = get(new URL(file_URL));
-
-code_editor.set_content( loaded );
-
-document.onkeydown = function (ev) {
-  if (ev.keyIdentifier === "Enter" && ev.ctrlKey) {
-//     ev.preventDefault();
-    eval(definitions_editor.to_js() );
-
-    
-    commit_history.save( code_editor.get_content() );
-    eval(code_editor.to_js() );
-          
-  };
-  
-  if (ev.keyIdentifier === "U+0053" && ev.ctrlKey) {  // Ctrl + s
-    put(new URL(file_URL), code_editor.get_content() );
-    ev.preventDefault();
-  }
-};
+        var commit_history = CommitHistory( $("history")[0] );
 
 
-// commit_history.load();  Broken until serialization works
-
-    ]]></script>
-
-   <script><![CDATA[
-
-// constructs a DOM node and appebds it to the intention. removes on close.
-var IntentionInteractionWindowEditor = function( intention ) {
-  var self = Node("<intention_interaction_window/>", "");
-  
-  var close = Node("<close_button/>", "[X]");
-
-  self.close = function() { intention.removeChild( self ); }
-  close.onclick = function() { intention.removeChild( self ); };
-  self.appendChild( close );
-
-  self.appendChild( Node("<header/>", "Setup"));
-  self.appendChild( Node("<editor/>", "var a = 99;"));
-
-  self.appendChild( Node("<header/>", "Intention"));
-  var ed = Node("<editor/>", '' );
-//   ed.appendChild( intention );
-  self.appendChild( Node("<editor/>", '' ));
-
-  self.appendChild( Node("<header/>", "Interact"));
-  var repl = Node("<repl/>", "");
-  repl.appendChild( Node("<editor/>", 'log(hello)'));
-  repl.appendChild( Node("<output/>", '"hello"'));
-  self.appendChild( repl );
+        // Control: this outer layer only wires together actions. The editor itself
+        // is responsible for serializing and de-serializing rich objects.
 
 
-  intention.appendChild( self );
-  return self;
-}
+        var file_URL = new URL(window.location.href).query_string();
 
-// i = IntentionInteractionWindowEditor( app );
-// Intention
-// var intention = DeclarationAssignment.Entity().view;
+        var loaded = get(new URL(file_URL));
+
+        code_editor.set_content( loaded );
+
+        document.onkeydown = function (ev) {
+          if (ev.keyIdentifier === "Enter" && ev.ctrlKey) {
+            //     ev.preventDefault();
+            eval(definitions_editor.to_js() );
 
 
-// var popup = IntentionInteractionWindowEditor( intention );
+            commit_history.save( code_editor.get_content() );
+            eval(code_editor.to_js() );
+
+          };
+
+          if (ev.keyIdentifier === "U+0053" && ev.ctrlKey) {  // Ctrl + s
+            put(new URL(file_URL), code_editor.get_content() );
+            ev.preventDefault();
+          }
+        };
 
 
-]]></script>
+        // commit_history.load();  Broken until serialization works
 
-  </body>
-</html>
+        ]]></script>
+
+      <script><![CDATA[
+
+        // constructs a DOM node and appebds it to the intention. removes on close.
+        var IntentionInteractionWindowEditor = function( intention ) {
+          var self = Node("<intention_interaction_window/>", "");
+
+          var close = Node("<close_button/>", "[X]");
+
+          self.close = function() { intention.removeChild( self ); }
+          close.onclick = function() { intention.removeChild( self ); };
+          self.appendChild( close );
+
+          self.appendChild( Node("<header/>", "Setup"));
+          self.appendChild( Node("<editor/>", "var a = 99;"));
+
+          self.appendChild( Node("<header/>", "Intention"));
+          var ed = Node("<editor/>", '' );
+          //   ed.appendChild( intention );
+          self.appendChild( Node("<editor/>", '' ));
+
+          self.appendChild( Node("<header/>", "Interact"));
+          var repl = Node("<repl/>", "");
+          repl.appendChild( Node("<editor/>", 'log(hello)'));
+          repl.appendChild( Node("<output/>", '"hello"'));
+          self.appendChild( repl );
+
+
+          intention.appendChild( self );
+          return self;
+        }
+
+        // i = IntentionInteractionWindowEditor( app );
+        // Intention
+        // var intention = DeclarationAssignment.Entity().view;
+
+
+        // var popup = IntentionInteractionWindowEditor( intention );
+
+
+        ]]></script>
+
+    </body>
+  </html>
