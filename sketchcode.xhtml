@@ -2,7 +2,7 @@
 <html xmlns='http://www.w3.org/1999/xhtml'>
   <head>
     <title> SketchCode </title>
-    <script src="jquery-1.4.4.js"/>
+    <script src="jquery-1.7.2.js"/>
     <script src="helpers.js"/> 
     <script src='rangy-1.0b1/rangy-core.js'/>
     <script src='rangy-1.0b1/rangy-core.js'/>
@@ -13,6 +13,22 @@
     <link rel="stylesheet" type="text/css" href="intention-interaction-window.css" />
     <link rel="stylesheet" type="text/css" href="sketchcode.css" />
     <link rel="stylesheet" type="text/css" href="commit-history.css" />
+    <script>
+      $(document).ready(function () {
+
+        $('#file-button').click(function () {
+          var filename = $('#file-input').val();
+          $.ajax({
+            url:filename,
+            }).done(function( file ) {
+            console.log(file);
+            code_editor.set_content(file);
+          });
+        });
+
+        //more stuff here
+      });
+    </script>
     </head>
     <body>
       <columns>
@@ -45,6 +61,11 @@
 
       </columns>
 
+      <div id="file">
+          file name: <input id="file-input" type="text" name="fname" />
+          <button id="file-button" type="button">Click Me!</button>
+
+      </div>
 
       <history>
       <header> History </header>
@@ -66,7 +87,6 @@
 
         // Control: this outer layer only wires together actions. The editor itself
         // is responsible for serializing and de-serializing rich objects.
-
 
         var file_URL = new URL(window.location.href).query_string();
 

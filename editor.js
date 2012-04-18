@@ -287,7 +287,7 @@ function Editor( self, intentions ) {
       objects.forEach( function(obj) { self.appendChild( obj ); } );
     } catch (err) {
       l(err);
-      alert("Err reading file. Valid format? Check log.");
+      console.log("Err reading file. Valid format? Check log.");
     }
 
   };
